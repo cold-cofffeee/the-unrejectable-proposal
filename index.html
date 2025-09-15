@@ -4,165 +4,35 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>An Important Question...</title>
+    <title>A little question...</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-      @import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@700;800&family=Inter:wght@400;500;600&family=Share+Tech+Mono&display=swap');
-      
-      body {
-        font-family: 'Inter', sans-serif;
-        background-color: #FFF8F0;
-        color: #333333;
-        overflow: hidden; /* Changed to hidden to prevent scrollbars during animations */
-      }
-
-      h1, h2, h3, .font-display {
-        font-family: 'Baloo 2', cursive;
-      }
-      
-      .font-mono {
-        font-family: 'Share Tech Mono', monospace;
-      }
-
-      .btn-wiggle:hover {
-        animation: wiggle 0.5s ease-in-out;
-      }
-
-      @keyframes wiggle {
-        0%, 100% { transform: rotate(-2deg) scale(var(--scale, 1.1)); }
-        50% { transform: rotate(2deg) scale(var(--scale, 1.1)); }
-      }
-      
-      .heart-beat {
-        animation: heart-beat 1.5s ease-in-out infinite;
-      }
-
-      @keyframes heart-beat {
-        0%, 100% { transform: scale(1); }
-        10%, 30% { transform: scale(0.95); }
-        20%, 40%, 60% { transform: scale(1.1); }
-        50%, 70% { transform: scale(1); }
-      }
-
-      .confetti-piece {
-        position: absolute;
-        width: 10px;
-        height: 20px;
-        background: var(--color);
-        top: 0;
-        left: 50%;
-        opacity: 0;
-        animation: confetti-fall 2s ease-out forwards;
-        transform-origin: center;
-      }
-
-      @keyframes confetti-fall {
-        0% { transform: translateY(-100px) rotateZ(0deg); opacity: 1; }
-        100% { transform: translateY(100vh) rotateZ(720deg); opacity: 0; }
-      }
-
-      .modal-fade-in {
-        animation: fade-in 0.3s ease-out forwards;
-      }
-      
-      @keyframes fade-in {
-        from { opacity: 0; transform: scale(0.95) translateY(10px); }
-        to { opacity: 1; transform: scale(1) translateY(0); }
-      }
-
-      /* New animations */
-      .heart-shower-piece {
-        position: absolute;
-        bottom: -50px; /* Start off-screen */
-        animation: heart-fly 3s ease-out forwards;
-        pointer-events: none;
-      }
-
-      @keyframes heart-fly {
-        0% { transform: translateY(0) scale(0.5); opacity: 0.8; }
-        100% { transform: translateY(-100vh) scale(1.2) rotate(360deg); opacity: 0; }
-      }
-
-      .loading-progress {
-        animation: fill-bar 2.5s ease-out forwards;
-      }
-
-      @keyframes fill-bar {
-        from { width: 0%; }
-        to { width: 100%; }
-      }
-      
-      /* Dramatic Intro Animations */
-      @keyframes pulsate {
-        0%, 100% { transform: scale(1); box-shadow: 0 0 20px 5px rgba(77, 208, 225, 0.4); }
-        50% { transform: scale(1.05); box-shadow: 0 0 35px 15px rgba(77, 208, 225, 0.7); }
-      }
-
-      @keyframes text-scramble {
-        0% { content: "#*&@$!"; }
-        10% { content: "KX?&S!@"; }
-        20% { content: "9B1&!C@"; }
-        30% { content: "Z@L!S#&"; }
-        40% { content: "V#*&Q$@"; }
-        50% { content: "F@&W!X#"; }
-        60% { content: "P$!@*&T"; }
-        70% { content: "M@&!A$#"; }
-        80% { content: "E*!@#&R"; }
-        90% { content: "H@$!*&S"; }
-        100% { content: "DECRYPTED"; }
-      }
-      
-      .text-scramble::after {
-          content: "DECRYPTING...";
-          animation: text-scramble 1.5s steps(1) forwards;
-      }
-      
-      .fade-in-up {
-        animation: fade-in-up 0.5s ease-out forwards;
-        opacity: 0;
-      }
-
-      @keyframes fade-in-up {
-        from { opacity: 0; transform: translateY(20px); }
-        to { opacity: 1; transform: translateY(0); }
-      }
-      
-      .ekg-path {
-          stroke-dasharray: 250;
-          stroke-dashoffset: 250;
-          animation: ekg-draw 1.5s linear forwards;
-      }
-      
-      @keyframes ekg-draw {
-          to {
-              stroke-dashoffset: 0;
-          }
-      }
-
-      /* Funny Ending Animations */
-      .stamp-in {
-        opacity: 0;
-        transform: scale(2.5) rotate(-30deg);
-        animation: stamp-in 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.5s forwards;
-      }
-
-      @keyframes stamp-in {
-        to {
-            opacity: 1;
-            transform: scale(1) rotate(-15deg);
-        }
-      }
-    </style>
   <script type="importmap">
 {
   "imports": {
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.1.1/",
     "react/": "https://aistudiocdn.com/react@^19.1.1/",
     "react": "https://aistudiocdn.com/react@^19.1.1",
-    "@google/genai": "https://aistudiocdn.com/@google/genai@^1.17.0",
-    "react-dom/": "https://aistudiocdn.com/react-dom@^19.1.1/"
+    "@google/genai": "https://aistudiocdn.com/@google/genai@^1.19.0"
   }
 }
 </script>
+<style>
+  @keyframes fade-scale-in {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+  }
+  .animate-fade-scale-in {
+    animation: fade-scale-in 0.5s ease-out forwards;
+  }
+  @keyframes float-up {
+    from { transform: translateY(0); opacity: 1; }
+    to { transform: translateY(-100vh); opacity: 0; }
+  }
+  .animate-float-up {
+      animation-name: float-up;
+      animation-timing-function: linear;
+  }
+</style>
 <link rel="stylesheet" href="/index.css">
 </head>
   <body>
