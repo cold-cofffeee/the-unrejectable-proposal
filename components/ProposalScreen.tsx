@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 
 interface ProposalScreenProps {
   name: string;
@@ -19,6 +19,10 @@ const messages = [
     "Pretty please?",
     "I'm just gonna...",
     "Don't do it!",
+    "C'mon, be nice!",
+    "Is that your final answer?",
+    "You're persistent!",
+    "Almost... not!"
 ];
 
 const ProposalScreen: React.FC<ProposalScreenProps> = ({ name, onYes, onNo, playSound }) => {
@@ -27,17 +31,20 @@ const ProposalScreen: React.FC<ProposalScreenProps> = ({ name, onYes, onNo, play
     const containerRef = useRef<HTMLDivElement>(null);
     const noButtonRef = useRef<HTMLButtonElement>(null);
 
-    const handleNoHover = () => {
+    const handleNoInteraction = () => {
         if (!containerRef.current || !noButtonRef.current) return;
 
-        playSound('swoosh');
         const newCount = noClickCount + 1;
-        setNoClickCount(newCount);
-
-        if (newCount > 9) {
+        
+        // After 10 tries, the button gives up and disappears.
+        if (newCount > 10) {
+            playSound('fail'); 
             setIsNoButtonVisible(false);
             return;
         }
+        
+        playSound('swoosh');
+        setNoClickCount(newCount);
 
         const containerRect = containerRef.current.getBoundingClientRect();
         const buttonRect = noButtonRef.current.getBoundingClientRect();
@@ -49,11 +56,6 @@ const ProposalScreen: React.FC<ProposalScreenProps> = ({ name, onYes, onNo, play
         noButtonRef.current.style.top = `${newTop}px`;
         noButtonRef.current.style.left = `${newLeft}px`;
     };
-    
-    const handleNoClick = () => {
-        playSound('fail');
-        onNo();
-    }
 
     const yesButtonSize = 1 + noClickCount * 0.5;
     const yesButtonPaddingY = 1 + noClickCount * 0.2;
@@ -85,8 +87,8 @@ const ProposalScreen: React.FC<ProposalScreenProps> = ({ name, onYes, onNo, play
       </div>
       <button
         ref={noButtonRef}
-        onMouseEnter={handleNoHover}
-        onClick={handleNoClick} // For the very persistent user
+        onMouseEnter={handleNoInteraction}
+        onClick={handleNoInteraction}
         className={`bg-stone-500 hover:bg-stone-600 text-white font-bold py-2 px-4 rounded-lg transition-all duration-300 z-20 shadow-lg ${!isNoButtonVisible ? 'opacity-0 pointer-events-none' : ''}`}
         style={{ position: 'absolute', top: '65%', left: 'calc(50% + 100px)'}}
       >

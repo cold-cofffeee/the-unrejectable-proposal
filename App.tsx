@@ -29,7 +29,7 @@ const NameInput: React.FC<{ onSubmit: (name: string) => void }> = ({ onSubmit })
         <div className="w-full h-full flex flex-col justify-center items-center p-4 text-stone-800">
             <form onSubmit={handleSubmit} className="bg-white/60 backdrop-blur-md p-8 rounded-2xl shadow-lg max-w-sm w-full text-center">
                 <label htmlFor="name" className="block text-3xl font-serif font-bold mb-6">
-                    Your name please....?
+                    Who's the lucky person?
                 </label>
                 <input
                     id="name"
